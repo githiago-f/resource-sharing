@@ -63,21 +63,3 @@ public class InstituicaoDAO {
 		return new ArrayList<>();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

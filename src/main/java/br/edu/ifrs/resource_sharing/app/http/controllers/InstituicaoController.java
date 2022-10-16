@@ -40,23 +40,3 @@ public class InstituicaoController {
 		return ResponseEntity.ok().body(instituicao);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
