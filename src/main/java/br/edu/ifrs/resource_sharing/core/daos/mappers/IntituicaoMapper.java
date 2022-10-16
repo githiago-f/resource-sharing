@@ -25,7 +25,7 @@ public class IntituicaoMapper {
 					.id(resultSet.getInt(1))
 					.nome(resultSet.getString(2))
 					.build();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			logger.error("Erro ao carregar a instância", e);
 			return null;
 		}
@@ -34,7 +34,7 @@ public class IntituicaoMapper {
 	public List<Instituicao> mapElements(@NotNull ResultSet resultSet)
 			throws SQLException {
 		List<Instituicao> list = new ArrayList<>();
-		while(resultSet.next()) {
+		while (resultSet.next()) {
 			list.add(elementToEntity(resultSet));
 		}
 		return list;

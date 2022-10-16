@@ -16,7 +16,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component public class InstituicaoDAO {
+@Component
+public class InstituicaoDAO {
 	private final Logger logger = LoggerFactory.getLogger(
 			InstituicaoDAO.class.getSimpleName()
 	);
@@ -32,8 +33,8 @@ import java.util.List;
 
 	public Instituicao registrar(@NotNull InstituicaoRequest request) {
 		String callSql = "{CALL trab_registra_instituicao(?, ?)}";
-		try(Connection cn = connectionProvider.getConnection();
-			CallableStatement stm = cn.prepareCall(callSql)
+		try (Connection cn = connectionProvider.getConnection();
+			 CallableStatement stm = cn.prepareCall(callSql)
 		) {
 			stm.setString(1, request.getNome());
 			stm.registerOutParameter(2, Types.NUMERIC);
@@ -50,8 +51,8 @@ import java.util.List;
 
 	public List<Instituicao> findAll() {
 		String listSql = "SELECT * FROM " + Table.INSTITUICOES;
-		try(Connection cn = connectionProvider.getConnection();
-			Statement stm = cn.createStatement()
+		try (Connection cn = connectionProvider.getConnection();
+			 Statement stm = cn.createStatement()
 		) {
 			ResultSet rset = stm.executeQuery(listSql);
 			Assert.notNull(rset, "Nenhum item retornado");

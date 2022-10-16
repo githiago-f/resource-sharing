@@ -1,8 +1,8 @@
 package br.edu.ifrs.resource_sharing.core.entities.software.queue;
 
 import br.edu.ifrs.resource_sharing.core.entities.software.Instancia;
-import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;

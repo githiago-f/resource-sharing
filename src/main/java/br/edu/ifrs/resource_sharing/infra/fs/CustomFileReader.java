@@ -12,9 +12,10 @@ import java.util.stream.Collectors;
 public class CustomFileReader {
 	private static final ClassLoader CL =
 			Thread.currentThread().getContextClassLoader();
+
 	@Nullable
 	public static String[] readFile(String file, String separator) {
-		try(InputStream stream = CL.getResourceAsStream(file)) {
+		try (InputStream stream = CL.getResourceAsStream(file)) {
 			assert stream != null;
 			InputStreamReader streamReader = new InputStreamReader(
 					stream, StandardCharsets.UTF_8);

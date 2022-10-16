@@ -20,11 +20,11 @@ public class RecursoMapper {
 	public Recurso elementToEntity(@NotNull ResultSet resultSet) {
 		try {
 			return new Recurso(
-				resultSet.getInt(1),
-				resultSet.getBigDecimal(2),
-				null
+					resultSet.getInt(1),
+					resultSet.getBigDecimal(2),
+					null
 			);
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			logger.error("Erro ao carregar a instância", e);
 			return null;
 		}

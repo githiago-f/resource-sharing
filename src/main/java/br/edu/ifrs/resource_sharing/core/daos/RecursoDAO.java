@@ -30,14 +30,14 @@ public class RecursoDAO {
 	public void salva(RecursoRequest request) {
 		String qtd = "qtd", cap = "cap", inst = "inst";
 		String sql = "{CALL trab_adc_recursos_instituicao(:qtd, :cap, :inst)}";
-		try(Connection cn = connectionProvider.getConnection();
-			CallableStatement call = cn.prepareCall(sql)
-		){
+		try (Connection cn = connectionProvider.getConnection();
+			 CallableStatement call = cn.prepareCall(sql)
+		) {
 			call.setInt(qtd, request.getQuantidade());
 			call.setBigDecimal(cap, request.getCapacidadeMb());
 			call.setInt(inst, request.getIdInstituicao());
 			call.execute();
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			logger.error("Erro ao criar recurso: ", e);
 		}
 	}
