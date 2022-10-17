@@ -11,6 +11,8 @@ import javax.annotation.PreDestroy;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
 import static br.edu.ifrs.resource_sharing.infra.fs.CustomFileReader.readFile;
 
 @Component
@@ -20,7 +22,8 @@ public class Migration {
     );
 
     private final ConnectionProvider provider;
-    private final String v1Schema, rProcedures, rViews, v1Drop;
+    private final String
+			v1Schema, rFuctions, rProcedures, rViews, v1Drop, rTriggers;
 
     @Autowired
     public Migration(ConnectionProvider provider) {
@@ -28,12 +31,13 @@ public class Migration {
 		rViews = "sql-scripts/R__Create_all_views.sql";
 		rProcedures = "sql-scripts/R__Create_procedures.sql";
 		v1Drop = "sql-scripts/R__Drop_All.sql";
+		rFuctions = "sql-scripts/R__Create_functions.sql";
+		rTriggers = "sql-scripts/R__Create_triggers.sql";
         this.provider = provider;
     }
 
 	private void createTables(Connection connection) {
-		String[] lines = readFile(v1Schema, ";");
-		assert lines != null;
+		List<String> lines = readFile(v1Schema, ";");
 		for(String line : lines) {
 			try(Statement stm = connection.createStatement()) {
 				stm.execute(line);
@@ -48,18 +52,12 @@ public class Migration {
 		}
 	}
 
-	private void createViewsAndProcedures(Connection connection) {
-		String[] lines = readFile(rViews, ";");
-		assert lines != null;
-		for(String line : lines) {
-			try(Statement stm = connection.createStatement()) {
-				stm.execute(line);
-			} catch(SQLException e) {
-				logger.error("Erro ao executar comando sql", e);
-			}
-		}
-		lines = readFile(rProcedures, "/");
-		assert lines != null;
+	private void executeAllFiles(Connection connection) {
+		List<String> lines = readFile(rViews, ";");
+		lines.addAll(readFile(rProcedures, "/"));
+		lines.addAll(readFile(rFuctions, "/"));
+		lines.addAll(readFile(rTriggers, "/"));
+
 		for(String line : lines) {
 			try(Statement stm = connection.createStatement()) {
 				stm.execute(line);
@@ -74,7 +72,7 @@ public class Migration {
         logger.info("Executando migração");
         Connection connection = provider.getConnection();
 		createTables(connection);
-		createViewsAndProcedures(connection);
+		executeAllFiles(connection);
 		try {
 			if(!connection.isClosed())
 				connection.close();
@@ -89,8 +87,7 @@ public class Migration {
 	public void down() {
 		logger.info("Revertendo migração");
 		Connection connection = provider.getConnection();
-		String[] commands = readFile(v1Drop, ";");
-		assert commands != null;
+		List<String> commands = readFile(v1Drop, ";");
 		for(String command : commands) {
 			try(Statement stm = connection.createStatement()) {
 				stm.execute(command);

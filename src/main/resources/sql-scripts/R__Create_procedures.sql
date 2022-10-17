@@ -26,6 +26,7 @@ BEGIN
 END;
 /
 
+-- REFACTOR:
 CREATE OR REPLACE PROCEDURE
   trab_instancia_programa_em_recurso_livre(
     p_instituicao IN trab_instituicoes.nome%type,
@@ -65,6 +66,7 @@ BEGIN
 END;
 /
 
+-- REFACTOR:
 CREATE OR REPLACE PROCEDURE
   trab_concluir_comando_na_instancia(p_id_instancia IN NUMBER)
 IS
@@ -75,26 +77,23 @@ BEGIN
   WHERE id_instancia = p_id_instancia
     AND terminou_em IS NULL;
 
-
-
   UPDATE trab_aluno_fila_instancia SET terminou_em = sysdate
   WHERE iniciou_em = ultimo_comando;
 END;
 /
 
+-- REFACTOR:
 CREATE OR REPLACE PROCEDURE
   trab_push_comando(
-    p_id_programa IN NUMBER
+    p_id_programa IN NUMBER,
+    p_id_aluno IN NUMBER,
+    p_comando IN CLOB
   )
 IS
   v_programa NUMBER;
-
-  CURSOR c_instancias(programa NUMBER) IS
-    SELECT FROM v_instancias_por_fila
-    WHERE id_programa = programa;
+  v_id_fila NUMBER;
+  v_em_fila NUMBER := 0;
 BEGIN
-    -- Selecionar a instância com menos comandos na fila
-    -- inserir comando na fila
   SELECT COUNT(1) INTO v_programa
   FROM trab_programas
   WHERE id_programa = p_id_programa;
@@ -103,27 +102,15 @@ BEGIN
     raise_application_error(-20000, 'Programa não habilitado');
   END IF;
 
-  FOR instancia IN c_instancias(p_id_programa) LOOP
-    -- TODO
-  END LOOP;
+  SELECT id_fila INTO v_id_fila
+  FROM v_instancias_por_fila
+  WHERE id_programa = p_id_programa AND rownum = 1;
+
+  IF (v_id_fila = null OR v_id_fila < 1) THEN
+
+  END IF;
+
+  INSERT INTO TRAB_ALUNOS_FILA
+  (ID_ALUNOS_FILA, ID_USUARIO, ID_FILA, DATA_ENTRADA, DATA_SAIDA, COMANDO)
+  VALUES (DEFAULT, p_id_aluno, v_id_fila, DEFAULT, NULL, p_comando);
 END;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

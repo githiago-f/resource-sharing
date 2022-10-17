@@ -1,20 +1,19 @@
 package br.edu.ifrs.resource_sharing.infra.fs;
 
-import org.springframework.lang.Nullable;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomFileReader {
 	private static final ClassLoader CL =
 			Thread.currentThread().getContextClassLoader();
 
-	@Nullable
-	public static String[] readFile(String file, String separator) {
+	public static List<String> readFile(String file, String separator) {
 		try (InputStream stream = CL.getResourceAsStream(file)) {
 			assert stream != null;
 			InputStreamReader streamReader = new InputStreamReader(
@@ -24,10 +23,10 @@ public class CustomFileReader {
 					.split(separator);
 			streamReader.close();
 			reader.close();
-			return result;
+			return Arrays.stream(result).toList();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return List.of();
 	}
 }

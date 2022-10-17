@@ -38,3 +38,22 @@ BEGIN
     return l_return;
 END;
 /
+
+/*
+  Como programas nao sao para uma unica instituicao,
+  sera possivel compartilhar entre as instituicoes
+  as instancias:
+
+  Instituicao A tem Recurso
+
+  Aluno da Instituicao B precisa de: Programa
+  Instituicao B nao tem Recurso livre -> não pode instanciar o programa
+  Instituicao A fornece o Recurso para a nova instancia.
+*/
+CREATE OR REPLACE FUNCTION
+  trab_quick_instancia() RETURN sys_refcursor
+IS
+BEGIN
+
+END;
+/

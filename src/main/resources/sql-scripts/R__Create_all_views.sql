@@ -23,16 +23,15 @@ CREATE OR REPLACE VIEW v_recursos_disponiveis AS
 
 CREATE OR REPLACE VIEW v_instancias_por_fila AS
   SELECT
-    ID_INSTANCIA,
-    ID_RECURSO,
+    ID_FILA,
     ID_PROGRAMA,
     COUNT(id_usuario) USUARIOS
   FROM trab_instancias
     LEFT JOIN TRAB_FILAS USING(id_instancia)
       JOIN trab_ALUNOS_FILA USING(id_fila)
   WHERE data_saida IS NULL
-  GROUP BY ID_INSTANCIA, ID_RECURSO, ID_PROGRAMA
-  ORDER BY USUARIOS;
+  GROUP BY ID_PROGRAMA, ID_FILA
+  ORDER BY USUARIOS DESC;
 
 
 
