@@ -1,6 +1,6 @@
 package br.edu.ifrs.resource_sharing.app.commands;
 
-import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
+import br.edu.ifrs.resource_sharing.core.entities.infra.db.ConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static br.edu.ifrs.resource_sharing.infra.fs.CustomFileReader.readFile;
+import static br.edu.ifrs.resource_sharing.core.entities.infra.fs.CustomFileReader.readFile;
 
 @Component
 public class Migration {
@@ -47,6 +47,9 @@ public class Migration {
 				if(message.contains(used) || message.contains(exists)) {
 					continue;
 				}
+				if(message.contains("invalid datatype")) {
+					logger.error("Command: " + line);
+				}
 				logger.error("Erro ao executar comando sql", e);
 			}
 		}
@@ -63,6 +66,8 @@ public class Migration {
 				stm.execute(line);
 			} catch(SQLException e) {
 				logger.error("Erro ao executar comando sql", e);
+			} catch(Exception e) {
+				logger.error("Erro: ", e);
 			}
 		}
 	}

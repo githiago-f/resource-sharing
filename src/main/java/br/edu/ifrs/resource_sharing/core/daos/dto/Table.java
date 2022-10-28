@@ -19,4 +19,9 @@ public enum Table {
 	public String getTableName() {
 		return tableName;
 	}
+
+	@Override
+	public String toString() {
+		return this.getTableName();
+	}
 }

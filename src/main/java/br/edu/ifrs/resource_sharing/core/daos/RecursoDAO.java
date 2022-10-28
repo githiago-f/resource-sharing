@@ -1,8 +1,10 @@
 package br.edu.ifrs.resource_sharing.core.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.RecursoRequest;
+import br.edu.ifrs.resource_sharing.core.daos.sqls.RecursosSQL;
 import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
-import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
+import br.edu.ifrs.resource_sharing.core.entities.infra.db.ConnectionProvider;
+import oracle.jdbc.OracleTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +30,18 @@ public class RecursoDAO {
 	}
 
 	public void salva(RecursoRequest request) {
-		String qtd = "qtd", cap = "cap", inst = "inst";
-		String sql = "{CALL trab_adc_recursos_instituicao(:qtd, :cap, :inst)}";
 		try (Connection cn = connectionProvider.getConnection();
-			 CallableStatement call = cn.prepareCall(sql)
+			 CallableStatement call = cn.prepareCall(RecursosSQL.INSERT)
 		) {
-			call.setInt(qtd, request.getQuantidade());
-			call.setBigDecimal(cap, request.getCapacidadeMb());
-			call.setInt(inst, request.getIdInstituicao());
+			call.setInt("qtd", request.getQuantidade());
+			call.setBigDecimal("capacidade_md", request.getCapacidadeMb());
+			call.setInt("instituicao", request.getIdInstituicao());
+
+			call.registerOutParameter(1, OracleTypes.CURSOR);
+
 			call.execute();
 		} catch (SQLException e) {
 			logger.error("Erro ao criar recurso: ", e);
 		}
-	}
-
-	public List<Recurso> busca() {
-		String sql = "";
-		try (Connection con = connectionProvider.getConnection();
-			 Statement stm = con.prepareStatement(sql)
-		) {
-			List<Recurso> recursos = new ArrayList<>();
-
-		} catch (SQLException e) {
-			logger.error("Não foi possivel buscar os recursos: ", e);
-		}
-		return List.of();
 	}
 }
