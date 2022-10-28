@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.entities.infra.fs;
+package br.edu.ifrs.resource_sharing.infra.fs;
 
 import java.io.BufferedReader;
 import java.io.IOException;

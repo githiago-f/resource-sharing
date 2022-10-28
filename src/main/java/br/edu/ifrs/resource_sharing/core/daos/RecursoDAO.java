@@ -2,8 +2,7 @@ package br.edu.ifrs.resource_sharing.core.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.RecursoRequest;
 import br.edu.ifrs.resource_sharing.core.daos.sqls.RecursosSQL;
-import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
-import br.edu.ifrs.resource_sharing.core.entities.infra.db.ConnectionProvider;
+import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import oracle.jdbc.OracleTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Component;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class RecursoDAO {

@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.entities.infra.db;
+package br.edu.ifrs.resource_sharing.infra.db;
 
 import java.sql.Connection;
 

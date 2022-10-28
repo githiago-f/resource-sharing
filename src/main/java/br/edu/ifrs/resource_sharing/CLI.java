@@ -1,8 +1,8 @@
 package br.edu.ifrs.resource_sharing;
 
 import br.edu.ifrs.resource_sharing.app.commands.Migration;
-import br.edu.ifrs.resource_sharing.core.entities.infra.db.ConnectionProvider;
-import br.edu.ifrs.resource_sharing.core.entities.infra.db.OracleConnectionProvider;
+import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
+import br.edu.ifrs.resource_sharing.infra.db.OracleConnectionProvider;
 
 public class CLI {
 	public static void main(String[] args) {

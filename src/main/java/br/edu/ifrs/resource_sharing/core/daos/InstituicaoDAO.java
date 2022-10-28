@@ -4,7 +4,7 @@ import br.edu.ifrs.resource_sharing.app.http.controllers.dto.InstituicaoRequest;
 import br.edu.ifrs.resource_sharing.core.daos.dto.Table;
 import br.edu.ifrs.resource_sharing.core.daos.mappers.IntituicaoMapper;
 import br.edu.ifrs.resource_sharing.core.entities.institution.Instituicao;
-import br.edu.ifrs.resource_sharing.core.entities.infra.db.ConnectionProvider;
+import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
