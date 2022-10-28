@@ -1,10 +1,10 @@
 package br.edu.ifrs.resource_sharing;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.boot.SpringApplication;
 @SpringBootApplication
-public class SpringApplication {
+public class ResourceShareHttpApplication {
 	public static void main(String[] args) {
-		org.springframework.boot.SpringApplication.run(SpringApplication.class, args);
+		SpringApplication.run(ResourceShareHttpApplication.class, args);
 	}
 }
