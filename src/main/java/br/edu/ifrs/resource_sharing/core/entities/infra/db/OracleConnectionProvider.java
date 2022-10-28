@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.infra.db;
+package br.edu.ifrs.resource_sharing.core.entities.infra.db;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
