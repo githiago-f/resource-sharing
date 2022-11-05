@@ -11,10 +11,23 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Recurso {
 	private Integer id;
 	private BigDecimal capacidadeMb;
 
-	private List<Instancia> instancias = new ArrayList<>();
+	private List<Instancia> instancias;
+
+	public Recurso(Integer id, BigDecimal capacidadeMb) {
+		this.id = id;
+		this.capacidadeMb = capacidadeMb;
+		this.instancias = new ArrayList<>();
+	}
+
+	@Override
+	public String toString() {
+		return "Recurso{" +
+				"id=" + id +
+				", capacidadeMb=" + capacidadeMb +
+				'}';
+	}
 }
