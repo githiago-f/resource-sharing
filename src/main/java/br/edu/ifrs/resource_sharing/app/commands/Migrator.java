@@ -16,23 +16,24 @@ import java.util.List;
 import static br.edu.ifrs.resource_sharing.infra.fs.CustomFileReader.readFile;
 
 @Component
-public class Migration {
+public class Migrator {
     private final Logger logger = LoggerFactory.getLogger(
-            Migration.class.getSimpleName()
+            Migrator.class.getSimpleName()
     );
 
     private final ConnectionProvider provider;
     private final String
-			v1Schema, rFuctions, rProcedures, rViews, v1Drop, rTriggers;
+			v1Schema, rFuctions, rProcedures, rViews, v1Drop, rTriggers, v2Populate;
 
     @Autowired
-    public Migration(ConnectionProvider provider) {
+    public Migrator(ConnectionProvider provider) {
         v1Schema = "sql-scripts/V1__schema.sql";
 		rViews = "sql-scripts/R__Create_all_views.sql";
 		rProcedures = "sql-scripts/R__Create_procedures.sql";
 		v1Drop = "sql-scripts/R__Drop_All.sql";
 		rFuctions = "sql-scripts/R__Create_functions.sql";
 		rTriggers = "sql-scripts/R__Create_triggers.sql";
+		v2Populate = "sql-scripts/V2__Populate.sql";
         this.provider = provider;
     }
 
@@ -55,7 +56,7 @@ public class Migration {
 		}
 	}
 
-	private void executeAllFiles(Connection connection) {
+	private void createProcedures(Connection connection) {
 		List<String> lines = readFile(rViews, ";");
 		lines.addAll(readFile(rProcedures, "/"));
 		lines.addAll(readFile(rFuctions, "/"));
@@ -72,12 +73,24 @@ public class Migration {
 		}
 	}
 
+	private void populate(Connection connection) {
+		List<String> lines = readFile(v2Populate, ";");
+		for (String line : lines) {
+			try (Statement stm = connection.createStatement()) {
+				stm.execute(line);
+			} catch(SQLException e) {
+				logger.error("Erro ao executar comando sql", e);
+			}
+		}
+	}
+
     @PostConstruct
     public void up() {
         logger.info("Executando migração");
         Connection connection = provider.getConnection();
 		createTables(connection);
-		executeAllFiles(connection);
+		createProcedures(connection);
+		populate(connection);
 		try {
 			if(!connection.isClosed())
 				connection.close();
