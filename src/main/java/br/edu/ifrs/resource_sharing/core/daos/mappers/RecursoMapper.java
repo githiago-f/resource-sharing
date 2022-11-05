@@ -1,31 +1,27 @@
 package br.edu.ifrs.resource_sharing.core.daos.mappers;
 
 import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class RecursoMapper {
+public class RecursoMapper implements Mapper<Recurso> {
 	private final Logger logger = LoggerFactory.getLogger(
-			RecursoMapper.class.getSimpleName()
+		RecursoMapper.class.getSimpleName()
 	);
 
-	@Nullable
-	public Recurso elementToEntity(@NotNull ResultSet resultSet) {
+	public Recurso elementToEntity(ResultSet resultSet) {
 		try {
-			return new Recurso(
-					resultSet.getInt(1),
-					resultSet.getBigDecimal(2),
-					null
-			);
+			int id = resultSet.getInt(1);
+			BigDecimal capacidade = resultSet.getBigDecimal(2);
+			return new Recurso(id, capacidade);
 		} catch (SQLException e) {
-			logger.error("Erro ao carregar a instância", e);
+			logger.error("Erro ao carregar o recurso", e);
 			return null;
 		}
 	}
