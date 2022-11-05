@@ -25,17 +25,13 @@ public class InstituicaoController {
 
 	@GetMapping
 	public ResponseEntity<List<Instituicao>> index() {
-		List<Instituicao> instituicoes = instituicaoDAO.findAll();
+		List<Instituicao> instituicoes = instituicaoDAO.buscaTodos();
 		return ResponseEntity.ok().body(instituicoes);
 	}
 
 	@PostMapping
 	public ResponseEntity<Instituicao> create(
-			@RequestBody InstituicaoRequest request
-	) {
-		if (request.getNome().isEmpty() || request.getNome().isBlank()) {
-			throw new RuntimeException("Nome não pode ser vazio");
-		}
+			@RequestBody InstituicaoRequest request) {
 		Instituicao instituicao = instituicaoDAO.registrar(request);
 		return ResponseEntity.ok().body(instituicao);
 	}
