@@ -3,7 +3,12 @@ package br.edu.ifrs.resource_sharing.core.daos.sqls;
 import br.edu.ifrs.resource_sharing.core.daos.dto.Table;
 
 public class InstituicaoSQL {
+	/*
+	 * IN nome
+	 */
 	public static String CREATE =
-			"INSERT INTO " + Table.INSTITUICOES + " VALUES (DEFAULT, ?);";
-	public static String ADC_RECURSO = "{CALL trab_adc_recursos_instituicao()}";
+			"{call INSERT INTO " + Table.INSTITUICOES + " VALUES (DEFAULT, ?) " +
+					"RETURNING id_instituicao INTO ?}";
+	public static String FIND =
+			"SELECT * FROM " + Table.INSTITUICOES;
 }

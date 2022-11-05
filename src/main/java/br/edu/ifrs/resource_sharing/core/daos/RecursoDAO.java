@@ -1,7 +1,9 @@
 package br.edu.ifrs.resource_sharing.core.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.RecursoRequest;
+import br.edu.ifrs.resource_sharing.core.daos.mappers.Mapper;
 import br.edu.ifrs.resource_sharing.core.daos.sqls.RecursosSQL;
+import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import oracle.jdbc.OracleTypes;
 import org.slf4j.Logger;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Component;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RecursoDAO {
@@ -19,25 +24,31 @@ public class RecursoDAO {
 			RecursoDAO.class.getSimpleName()
 	);
 	private final ConnectionProvider connectionProvider;
+	private final Mapper<Recurso> mapper;
 
 	@Autowired
-	public RecursoDAO(ConnectionProvider connectionProvider) {
+	public RecursoDAO(ConnectionProvider connectionProvider, Mapper<Recurso> mapper) {
 		this.connectionProvider = connectionProvider;
+		this.mapper = mapper;
 	}
 
-	public void salva(RecursoRequest request) {
+	public List<Recurso> salva(RecursoRequest request) {
 		try (Connection cn = connectionProvider.getConnection();
 			 CallableStatement call = cn.prepareCall(RecursosSQL.INSERT)
 		) {
-			call.setInt("qtd", request.getQuantidade());
-			call.setBigDecimal("capacidade_md", request.getCapacidadeMb());
-			call.setInt("instituicao", request.getIdInstituicao());
+			call.setInt(2, request.getQuantidade());
+			call.setBigDecimal(3, request.getCapacidadeMb());
+			call.setInt(4, request.getIdInstituicao());
 
 			call.registerOutParameter(1, OracleTypes.CURSOR);
 
-			call.execute();
+			call.executeUpdate();
+			try(ResultSet data = (ResultSet) call.getObject(1)) {
+				return mapper.mapElements(data);
+			}
 		} catch (SQLException e) {
 			logger.error("Erro ao criar recurso: ", e);
 		}
+		return new ArrayList<>();
 	}
 }
