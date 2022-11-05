@@ -9,6 +9,7 @@ DROP TABLE trab_recursos CASCADE CONSTRAINTS;
 DROP TABLE trab_programas CASCADE CONSTRAINTS;
 DROP TABLE trab_instituicoes CASCADE CONSTRAINTS;
 DROP TABLE trab_alunos CASCADE CONSTRAINTS;
+DROP TABLE TRAB_MENU;
 
 DROP SEQUENCE trab_s_instituicao;
 DROP SEQUENCE trab_s_recurso;
@@ -17,6 +18,7 @@ DROP SEQUENCE trab_s_instancia;
 DROP SEQUENCE trab_s_fila;
 DROP SEQUENCE trab_s_aluno;
 DROP SEQUENCE trab_s_alunos_fila;
+DROP SEQUENCE trab_s_menu;
 
 DROP PROCEDURE trab_mata_processos_nao_usados;
 DROP PROCEDURE trab_push_comando;

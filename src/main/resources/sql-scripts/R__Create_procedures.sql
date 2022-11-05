@@ -1,6 +1,13 @@
 CREATE OR REPLACE PROCEDURE
-  trab_mata_processos_nao_usados
+  busca_funcoes_menu(p_out_menu OUT SYS_REFCURSOR)
 IS
+BEGIN
+  OPEN p_out_menu FOR
+    SELECT TITULO, LINK, METODO FROM TRAB_MENU;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE trab_mata_processos_nao_usados IS
   CURSOR c_sem_uso IS
     SELECT id_instancia
     FROM v_instancias_ultimo_uso WHERE minutos_sem_uso > 10;
