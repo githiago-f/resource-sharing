@@ -1,7 +1,7 @@
 package br.edu.ifrs.resource_sharing.app.http.controllers;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.RecursoRequest;
-import br.edu.ifrs.resource_sharing.core.daos.RecursoDAO;
+import br.edu.ifrs.resource_sharing.infra.db.daos.RecursoDAO;
 import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

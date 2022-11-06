@@ -3,7 +3,7 @@ package br.edu.ifrs.resource_sharing.app.http.controllers;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.MessageDTO;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.ProgramCallRequest;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.ProgramaRequest;
-import br.edu.ifrs.resource_sharing.core.daos.ProgramaDAO;
+import br.edu.ifrs.resource_sharing.infra.db.daos.ProgramaDAO;
 import br.edu.ifrs.resource_sharing.core.entities.software.Programa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

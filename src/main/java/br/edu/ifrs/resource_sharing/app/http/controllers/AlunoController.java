@@ -2,7 +2,7 @@ package br.edu.ifrs.resource_sharing.app.http.controllers;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.AlunoRequest;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.CredenciaisLogin;
-import br.edu.ifrs.resource_sharing.core.daos.PersonDAO;
+import br.edu.ifrs.resource_sharing.infra.db.daos.PersonDAO;
 import br.edu.ifrs.resource_sharing.core.entities.person.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
