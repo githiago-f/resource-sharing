@@ -1,7 +1,7 @@
-package br.edu.ifrs.resource_sharing.core.daos;
+package br.edu.ifrs.resource_sharing.infra.db.daos;
 
-import br.edu.ifrs.resource_sharing.core.daos.dto.MenuDTO;
-import br.edu.ifrs.resource_sharing.core.daos.mappers.Mapper;
+import br.edu.ifrs.resource_sharing.infra.db.daos.dto.MenuDTO;
+import br.edu.ifrs.resource_sharing.core.mappers.Mapper;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
-package br.edu.ifrs.resource_sharing.core.daos;
+package br.edu.ifrs.resource_sharing.infra.db.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.InstituicaoRequest;
-import br.edu.ifrs.resource_sharing.core.daos.mappers.Mapper;
-import br.edu.ifrs.resource_sharing.core.daos.sqls.InstituicaoSQL;
+import br.edu.ifrs.resource_sharing.core.mappers.Mapper;
+import br.edu.ifrs.resource_sharing.infra.db.daos.sqls.InstituicaoSQL;
 import br.edu.ifrs.resource_sharing.core.entities.institution.Instituicao;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import org.jetbrains.annotations.NotNull;

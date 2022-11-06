@@ -1,6 +1,6 @@
-package br.edu.ifrs.resource_sharing.core.daos.sqls;
+package br.edu.ifrs.resource_sharing.infra.db.daos.sqls;
 
-import br.edu.ifrs.resource_sharing.core.daos.dto.Table;
+import br.edu.ifrs.resource_sharing.infra.db.daos.dto.Table;
 
 public class PersonSQL {
 	public static String CREATE =
@@ -9,4 +9,7 @@ public class PersonSQL {
 			"RETURNING id_aluno INTO ?}";
 
 	public static String LOGIN = "{CALL ? = trab_login(?, ?)}";
+
+	public static String POR_ID = "SELECT ID_ALUNO, NOME, EMAIL " +
+			"FROM TRAB_ALUNOS WHERE ID_ALUNO = ?";
 }

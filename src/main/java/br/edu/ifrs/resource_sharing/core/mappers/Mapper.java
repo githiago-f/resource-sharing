@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.daos.mappers;
+package br.edu.ifrs.resource_sharing.core.mappers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

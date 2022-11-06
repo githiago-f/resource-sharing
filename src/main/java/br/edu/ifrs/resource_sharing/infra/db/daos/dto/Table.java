@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.daos.dto;
+package br.edu.ifrs.resource_sharing.infra.db.daos.dto;
 
 public enum Table {
 	INSTITUICOES("TRAB_INSTITUICOES"),

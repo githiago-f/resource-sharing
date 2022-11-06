@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.daos.dto;
+package br.edu.ifrs.resource_sharing.infra.db.daos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

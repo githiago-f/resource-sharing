@@ -1,6 +1,6 @@
-package br.edu.ifrs.resource_sharing.core.daos.sqls;
+package br.edu.ifrs.resource_sharing.infra.db.daos.sqls;
 
-import br.edu.ifrs.resource_sharing.core.daos.dto.Table;
+import br.edu.ifrs.resource_sharing.infra.db.daos.dto.Table;
 
 public class InstituicaoSQL {
 	/*

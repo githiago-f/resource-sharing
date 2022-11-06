@@ -1,9 +1,9 @@
-package br.edu.ifrs.resource_sharing.core.daos;
+package br.edu.ifrs.resource_sharing.infra.db.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.AlunoRequest;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.CredenciaisLogin;
-import br.edu.ifrs.resource_sharing.core.daos.mappers.Mapper;
-import br.edu.ifrs.resource_sharing.core.daos.sqls.PersonSQL;
+import br.edu.ifrs.resource_sharing.core.mappers.Mapper;
+import br.edu.ifrs.resource_sharing.infra.db.daos.sqls.PersonSQL;
 import br.edu.ifrs.resource_sharing.core.entities.person.Aluno;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import org.slf4j.Logger;
@@ -61,6 +61,19 @@ public class PersonDAO {
 			return new Aluno(id, data.getNome(), data.getEmail());
 		}catch (SQLException e) {
 			logger.error("Erro ao registrar aluno: ", e);
+		}
+		return null;
+	}
+
+	public Aluno buscaPorId(int id) {
+		try(Connection cn = cnProvider.getConnection();
+			PreparedStatement stm = cn.prepareStatement(PersonSQL.POR_ID)) {
+			stm.setInt(1, id);
+			try(ResultSet result = stm.executeQuery()) {
+				return mapper.elementToEntity(result);
+			}
+		} catch (SQLException e) {
+			logger.error("Error ao buscar aluno por id: ", e);
 		}
 		return null;
 	}

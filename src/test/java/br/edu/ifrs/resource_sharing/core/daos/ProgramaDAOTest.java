@@ -2,7 +2,8 @@ package br.edu.ifrs.resource_sharing.core.daos;
 
 import br.edu.ifrs.resource_sharing.app.commands.Migrator;
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.ProgramaRequest;
-import br.edu.ifrs.resource_sharing.core.daos.mappers.ProgramaMapper;
+import br.edu.ifrs.resource_sharing.infra.db.daos.ProgramaDAO;
+import br.edu.ifrs.resource_sharing.core.mappers.ProgramaMapper;
 import br.edu.ifrs.resource_sharing.core.entities.software.Programa;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import br.edu.ifrs.resource_sharing.infra.db.OracleConnectionProvider;

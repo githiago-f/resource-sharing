@@ -1,6 +1,6 @@
-package br.edu.ifrs.resource_sharing.core.daos.mappers;
+package br.edu.ifrs.resource_sharing.core.mappers;
 
-import br.edu.ifrs.resource_sharing.core.daos.dto.MenuDTO;
+import br.edu.ifrs.resource_sharing.infra.db.daos.dto.MenuDTO;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 

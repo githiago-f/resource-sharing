@@ -1,4 +1,4 @@
-package br.edu.ifrs.resource_sharing.core.daos.mappers;
+package br.edu.ifrs.resource_sharing.core.mappers;
 
 import br.edu.ifrs.resource_sharing.core.entities.person.Aluno;
 import org.springframework.stereotype.Component;

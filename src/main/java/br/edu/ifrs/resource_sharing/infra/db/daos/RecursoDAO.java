@@ -1,8 +1,8 @@
-package br.edu.ifrs.resource_sharing.core.daos;
+package br.edu.ifrs.resource_sharing.infra.db.daos;
 
 import br.edu.ifrs.resource_sharing.app.http.controllers.dto.RecursoRequest;
-import br.edu.ifrs.resource_sharing.core.daos.mappers.Mapper;
-import br.edu.ifrs.resource_sharing.core.daos.sqls.RecursosSQL;
+import br.edu.ifrs.resource_sharing.core.mappers.Mapper;
+import br.edu.ifrs.resource_sharing.infra.db.daos.sqls.RecursosSQL;
 import br.edu.ifrs.resource_sharing.core.entities.institution.Recurso;
 import br.edu.ifrs.resource_sharing.infra.db.ConnectionProvider;
 import oracle.jdbc.OracleTypes;
@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +47,19 @@ public class RecursoDAO {
 			logger.error("Erro ao criar recurso: ", e);
 		}
 		return new ArrayList<>();
+	}
+
+	public Recurso buscaPorId(Integer id) {
+		try (Connection cn = connectionProvider.getConnection();
+			 PreparedStatement stm = cn.prepareStatement(RecursosSQL.BUSCA_P_ID);
+		) {
+			stm.setInt(1, id);
+			try (ResultSet data = stm.executeQuery()) {
+				return mapper.elementToEntity(data);
+			}
+		} catch (SQLException e) {
+			logger.error("Erro ao ler programa por id: ", e);
+		}
+		return null;
 	}
 }
