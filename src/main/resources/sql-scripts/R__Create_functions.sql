@@ -7,7 +7,7 @@ IS
   r_user sys_refcursor;
 BEGIN
   OPEN r_user FOR
-    SELECT * FROM trab_alunos
+    SELECT id_aluno, nome, email FROM trab_alunos
     WHERE email = p_email AND senha = p_senha;
   RETURN r_user;
 END;
