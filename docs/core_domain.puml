@@ -1,0 +1,73 @@
+@startuml "core_domain"
+
+title "Core domain for application"
+
+package "br.edu.ifrs.resource_sharing.core.entities" {
+    package "person" {
+        class Aluno {
+            - id: Integer
+            - nome: String
+            - email: String
+            - senha: String
+        }
+    }
+
+    package "software" {
+        class Programa {
+            - id: Integer
+            - nome: String
+            - memConsumida: Integer
+        }
+        class Instancia {
+            - id: Integer
+        }
+
+        Instancia --* Programa
+    }
+
+    class AlunoFilaInstancia {
+        - iniciouEm: Date
+        - terminouEm: Date
+    }
+    note bottom
+      Deve ficar em "software.queue"
+      porém o modelo ficaria
+      confuso com a ferramenta de
+      modelagem.
+    end note
+
+    package "institution" {
+        class Instituicao {
+            - id: Integer
+            - nome: String
+        }
+        class Recurso {
+            - id: Integer
+            - capacidadeMb: BigDecimal
+        }
+
+        Recurso --o Instancia
+        Instituicao -o Recurso
+    }
+
+    package "software.queue" {
+        class AlunoFila {
+            - id: Integer
+            - dataEntrada: Date
+            - dataSaida: Date
+            - comando: String
+        }
+        class Fila {
+            - id: Integer
+        }
+
+        Fila "n" -- "n" Aluno
+        (Aluno, Fila) . AlunoFila
+
+        Fila - Instancia
+        AlunoFila -right- Instancia
+        (AlunoFila, Instancia) .. AlunoFilaInstancia
+    }
+}
+
+@enduml
