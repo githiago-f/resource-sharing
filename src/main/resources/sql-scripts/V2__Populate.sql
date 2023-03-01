@@ -10,3 +10,6 @@ INSERT INTO trab_menu VALUES(DEFAULT, 'Usar um programa determinado', '/api/prog
 
 INSERT INTO trab_menu VALUES(DEFAULT, 'Pegar instancia de um programa', '/api/instancia/{idPrograma}', 'GET');
 INSERT INTO trab_menu VALUES(DEFAULT, 'Concluir execucao', '/api/instancia/{idPrograma}', 'POST');
+
+INSERT INTO trab_menu VALUES(DEFAULT, 'Login de usuario', '/api/login', 'POST');
+INSERT INTO trab_menu VALUES(DEFAULT, 'Cadastro de usuarios', '/api/alunos', 'POST');

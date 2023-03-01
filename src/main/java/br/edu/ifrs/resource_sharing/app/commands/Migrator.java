@@ -44,7 +44,7 @@ public class Migrator {
 				stm.execute(line);
 			} catch(SQLException e) {
 				String message = e.getMessage(),
-						used = "already used", exists = "already exists";
+					used = "already used", exists = "already exists";
 				if(message.contains(used) || message.contains(exists)) {
 					continue;
 				}

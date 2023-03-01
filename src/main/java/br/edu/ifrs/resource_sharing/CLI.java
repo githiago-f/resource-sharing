@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class CLI {
 	private static final Logger logger = LoggerFactory.getLogger(
-			CLI.class.getSimpleName()
+		CLI.class.getSimpleName()
 	);
 
 	public static void main(String[] args) {
@@ -35,9 +35,6 @@ public class CLI {
 		for (var inst : instituicoes) {
 			System.out.println(inst);
 		}
-
-
-
 
 		// tear down
 		migrator.down();
